@@ -1,19 +1,26 @@
 'use client'
 
 import { useState } from "react";
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { columns } from "./columns";
 import { Person } from "./types";
 
 export function Table({ peopleData }: any) {
+  const [sorting, setSorting] = useState<SortingState>([])
   const [data, setData] = useState(() => {
     return peopleData.map((person: Person) => {
       return { ...person, full_name: `${person.first_name} ${person.last_name}` }
     })
   })
+
   const table = useReactTable({
     data,
     columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
   })
 
