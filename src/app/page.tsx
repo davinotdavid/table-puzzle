@@ -1,5 +1,9 @@
-export default function Home() {
+import { PeopleTable } from "./components/PeopleTable";
+
+export default async function Home() {
   return (
-    <main>Hi</main>
+    <main>
+      <PeopleTable />
+    </main>
   )
 }
