@@ -1,9 +1,16 @@
-import { PeopleTable } from "./components/PeopleTable";
+"use client";
 
-export default async function Home() {
+import { Header } from "./components/Header";
+import { PeopleTable } from "./components/PeopleTable";
+import { AuthContextProvider } from "./contexts/AuthContext";
+
+export default function Home() {
   return (
-    <main>
-      <PeopleTable />
-    </main>
-  )
+    <AuthContextProvider>
+      <Header />
+      <main>
+        <PeopleTable />
+      </main>
+    </AuthContextProvider>
+  );
 }

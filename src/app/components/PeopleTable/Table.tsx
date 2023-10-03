@@ -15,7 +15,7 @@ import styles from "./styles.module.css";
 
 const PAGE_FETCH_SIZE = 25;
 
-export function Table({ peopleData }: any) {
+export function Table() {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const { data, fetchNextPage, isFetching, isLoading } =
