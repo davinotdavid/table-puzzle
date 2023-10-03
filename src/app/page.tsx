@@ -15,7 +15,7 @@ export default function Home() {
         <PeopleTableContextProvider>
           <Header />
 
-          <main>
+          <main className="px-4">
             <Table />
           </main>
         </PeopleTableContextProvider>

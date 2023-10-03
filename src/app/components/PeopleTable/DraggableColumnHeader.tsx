@@ -52,6 +52,7 @@ export const DraggableColumnHeader: FC<{
 
   return (
     <th
+      className="text-left"
       ref={dropRef}
       colSpan={header.colSpan}
       style={{ opacity: isDragging ? 0.5 : 1 }}
@@ -60,7 +61,9 @@ export const DraggableColumnHeader: FC<{
         {header.isPlaceholder
           ? null
           : flexRender(header.column.columnDef.header, header.getContext())}
-        <button ref={dragRef}>🟰</button>
+        <button className="mx-4" ref={dragRef}>
+          🟰
+        </button>
       </div>
     </th>
   );

@@ -21,11 +21,11 @@ export function Table() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div
-        className={styles.container}
+        className="h-[500px] overflow-auto border-2 border-solid border-gray-400 rounded"
         onScroll={(e) => fetchMoreOnBottomReached(e.target as HTMLDivElement)}
         ref={tableContainerRef}
       >
-        <table>
+        <table className="w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -52,7 +52,9 @@ export function Table() {
 
             {isFetching && (
               <tr>
-                <td>Fetching more...</td>
+                <td className="text-center py-4" colSpan={7}>
+                  Fetching more...
+                </td>
               </tr>
             )}
           </tbody>

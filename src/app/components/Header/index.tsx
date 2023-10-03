@@ -24,21 +24,37 @@ export function Header() {
   }
 
   return (
-    <header>
+    <header className="p-4 flex items-center justify-end">
       {user ? (
         <>
-          <button className="mr-2" onClick={handleOnSaveClicked}>
+          <button
+            className="px-5 py-2 border-2 border-slate-400 border-solid rounded mr-2"
+            onClick={handleOnSaveClicked}
+          >
             Save
           </button>
-          <button className="mr-2" onClick={handleOnLoadClicked}>
+          <button
+            className="px-5 py-2 border-2 border-slate-400 border-solid rounded mr-2"
+            onClick={handleOnLoadClicked}
+          >
             Load
           </button>
 
-          <span className="mr-2">User: {user.email}</span>
-          <button onClick={handleOnLogoutClicked}>Logout</button>
+          <span className="mx-8">User: {user.email}</span>
+          <button
+            className="px-5 py-2 border-2 border-slate-400 border-solid rounded"
+            onClick={handleOnLogoutClicked}
+          >
+            Logout
+          </button>
         </>
       ) : (
-        <button onClick={handleOnLoginClicked}>Login</button>
+        <button
+          className="px-5 py-2 border-2 border-slate-400 border-solid rounded"
+          onClick={handleOnLoginClicked}
+        >
+          Login
+        </button>
       )}
     </header>
   );
