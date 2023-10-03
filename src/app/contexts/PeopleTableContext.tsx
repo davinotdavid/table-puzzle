@@ -24,6 +24,8 @@ interface PeopleTableContextType {
   ) => void;
   isLoading: boolean;
   isFetching: boolean;
+  saveCurrentColumnState: () => void;
+  loadPreviousColumnState: () => void;
 }
 
 interface PeopleTableContextProviderProps {
@@ -109,9 +111,30 @@ export function PeopleTableContextProvider({
     [fetchNextPage, isFetching, totalFetched, totalDBRowCount]
   );
 
+  function saveCurrentColumnState() {
+    localStorage.setItem(
+      "@tablepuzzle:columnorder:",
+      JSON.stringify(columnOrder)
+    );
+  }
+
+  function loadPreviousColumnState() {
+    const storedColumnOrder = localStorage.getItem("@tablepuzzle:columnorder:");
+    if (storedColumnOrder) {
+      setColumnOrder(JSON.parse(storedColumnOrder));
+    }
+  }
+
   return (
     <PeopleTableContext.Provider
-      value={{ table, fetchMoreOnBottomReached, isLoading, isFetching }}
+      value={{
+        table,
+        fetchMoreOnBottomReached,
+        isLoading,
+        isFetching,
+        saveCurrentColumnState,
+        loadPreviousColumnState,
+      }}
     >
       {children}
     </PeopleTableContext.Provider>
