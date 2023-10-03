@@ -2,21 +2,28 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import {
+  ColumnOrderState,
   SortingState,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { columns } from "./columns";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { PersonApiResponse, fetchPeople } from "@/api/people";
+import { columns } from "./columns";
 import styles from "./styles.module.css";
+import { DraggableColumnHeader } from "./DraggableColumnHeader";
 
 const PAGE_FETCH_SIZE = 25;
 
 export function Table() {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnOrder, setColumnOrder] = useState<ColumnOrderState>(
+    columns.map((column) => column.id as string)
+  );
 
   const { data, fetchNextPage, isFetching, isLoading } =
     useInfiniteQuery<PersonApiResponse>(
@@ -57,8 +64,10 @@ export function Table() {
     columns,
     state: {
       sorting,
+      columnOrder,
     },
     onSortingChange: setSorting,
+    onColumnOrderChange: setColumnOrder,
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
   });
@@ -90,46 +99,45 @@ export function Table() {
   }
 
   return (
-    <div
-      className={styles.container}
-      onScroll={(e) => fetchMoreOnBottomReached(e.target as HTMLDivElement)}
-      ref={tableContainerRef}
-    >
-      <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
+    <DndProvider backend={HTML5Backend}>
+      <div
+        className={styles.container}
+        onScroll={(e) => fetchMoreOnBottomReached(e.target as HTMLDivElement)}
+        ref={tableContainerRef}
+      >
+        <table>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <DraggableColumnHeader
+                    key={header.id}
+                    header={header}
+                    table={table}
+                  />
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
 
-          {isFetching && (
-            <tr>
-              <td>Fetching more...</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+            {isFetching && (
+              <tr>
+                <td>Fetching more...</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </DndProvider>
   );
 }

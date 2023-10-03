@@ -1,92 +1,80 @@
-import { Column, createColumnHelper } from "@tanstack/react-table"
+import { Column, createColumnHelper } from "@tanstack/react-table";
 import { Person } from "@/api/people";
 
-const columnHelper = createColumnHelper<Person>()
+const columnHelper = createColumnHelper<Person>();
 
 function toggleSortingAscending(column: Column<Person>) {
   return column.toggleSorting(column.getIsSorted() === "asc");
 }
 
 export const columns = [
-  columnHelper.accessor('first_name', {
-    cell: info => info.getValue(),
+  columnHelper.accessor("first_name", {
+    id: "firstName",
+    cell: (info) => info.getValue(),
     header: ({ column }) => {
       return (
-        <button
-          onClick={() => toggleSortingAscending(column)}
-        >
+        <button onClick={() => toggleSortingAscending(column)}>
           First Name
         </button>
-      )
+      );
     },
   }),
-  columnHelper.accessor('last_name', {
-    id: 'lastName',
-    cell: info => <i>{info.getValue()}</i>,
+  columnHelper.accessor("last_name", {
+    id: "lastName",
+    cell: (info) => <i>{info.getValue()}</i>,
     header: ({ column }) => {
       return (
-        <button
-          onClick={() => toggleSortingAscending(column)}
-        >
+        <button onClick={() => toggleSortingAscending(column)}>
           Last Name
         </button>
-      )
+      );
     },
   }),
-  columnHelper.accessor('full_name', {
-    cell: info => <i>{info.getValue()}</i>,
+  columnHelper.accessor("full_name", {
+    id: "fullName",
+    cell: (info) => <i>{info.getValue()}</i>,
     header: ({ column }) => {
       return (
-        <button
-          onClick={() => toggleSortingAscending(column)}
-        >
+        <button onClick={() => toggleSortingAscending(column)}>
           Full Name
         </button>
-      )
+      );
     },
   }),
-  columnHelper.accessor('email', {
+  columnHelper.accessor("email", {
+    id: "email",
     header: ({ column }) => {
       return (
-        <button
-          onClick={() => toggleSortingAscending(column)}
-        >
-          Email
-        </button>
-      )
+        <button onClick={() => toggleSortingAscending(column)}>Email</button>
+      );
     },
   }),
-  columnHelper.accessor('city', {
+  columnHelper.accessor("city", {
+    id: "city",
     header: ({ column }) => {
       return (
-        <button
-          onClick={() => toggleSortingAscending(column)}
-        >
-          City
-        </button>
-      )
+        <button onClick={() => toggleSortingAscending(column)}>City</button>
+      );
     },
   }),
-  columnHelper.accessor('registered_date', {
+  columnHelper.accessor("registered_date", {
+    id: "registeredDate",
     header: ({ column }) => {
       return (
-        <button
-          onClick={() => toggleSortingAscending(column)}
-        >
+        <button onClick={() => toggleSortingAscending(column)}>
           Registered Date
         </button>
-      )
+      );
     },
   }),
-  columnHelper.accessor('is_private', {
+  columnHelper.accessor("is_private", {
+    id: "isPrivate",
     header: ({ column }) => {
       return (
-        <button
-          onClick={() => toggleSortingAscending(column)}
-        >
+        <button onClick={() => toggleSortingAscending(column)}>
           Is Private?
         </button>
-      )
+      );
     },
   }),
-]
+];
