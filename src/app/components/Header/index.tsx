@@ -1,10 +1,12 @@
+"use client";
+
 import { AuthContext } from "@/app/contexts/AuthContext";
 import { PeopleTableContext } from "@/app/contexts/PeopleTableContext";
 import { useContext } from "react";
 
 export function Header() {
   const { user, login, logout } = useContext(AuthContext);
-  const { saveCurrentColumnState, loadPreviousColumnState } =
+  const { saveCurrentColumnState, loadPreviousColumnState, resetColumnState } =
     useContext(PeopleTableContext);
 
   function handleOnLoginClicked() {
@@ -12,6 +14,7 @@ export function Header() {
   }
 
   function handleOnLogoutClicked() {
+    resetColumnState();
     logout();
   }
 

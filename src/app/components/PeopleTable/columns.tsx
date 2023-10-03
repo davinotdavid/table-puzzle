@@ -21,7 +21,7 @@ export const columns = [
   }),
   columnHelper.accessor("last_name", {
     id: "lastName",
-    cell: (info) => <i>{info.getValue()}</i>,
+    cell: (info) => info.getValue(),
     header: ({ column }) => {
       return (
         <button onClick={() => toggleSortingAscending(column)}>
@@ -32,7 +32,7 @@ export const columns = [
   }),
   columnHelper.accessor("full_name", {
     id: "fullName",
-    cell: (info) => <i>{info.getValue()}</i>,
+    cell: (info) => info.getValue(),
     header: ({ column }) => {
       return (
         <button onClick={() => toggleSortingAscending(column)}>
@@ -43,6 +43,7 @@ export const columns = [
   }),
   columnHelper.accessor("email", {
     id: "email",
+    cell: (info) => info.getValue(),
     header: ({ column }) => {
       return (
         <button onClick={() => toggleSortingAscending(column)}>Email</button>
@@ -51,6 +52,7 @@ export const columns = [
   }),
   columnHelper.accessor("city", {
     id: "city",
+    cell: (info) => info.getValue(),
     header: ({ column }) => {
       return (
         <button onClick={() => toggleSortingAscending(column)}>City</button>
@@ -59,6 +61,8 @@ export const columns = [
   }),
   columnHelper.accessor("registered_date", {
     id: "registeredDate",
+    cell: (info) =>
+      new Intl.DateTimeFormat("en-CA").format(new Date(info.getValue())),
     header: ({ column }) => {
       return (
         <button onClick={() => toggleSortingAscending(column)}>
@@ -69,6 +73,7 @@ export const columns = [
   }),
   columnHelper.accessor("is_private", {
     id: "isPrivate",
+    cell: (info) => (info.getValue() ? "Yes" : "No"),
     header: ({ column }) => {
       return (
         <button onClick={() => toggleSortingAscending(column)}>

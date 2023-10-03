@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ReactNode,
   createContext,
@@ -26,6 +28,7 @@ interface PeopleTableContextType {
   isFetching: boolean;
   saveCurrentColumnState: () => void;
   loadPreviousColumnState: () => void;
+  resetColumnState: () => void;
 }
 
 interface PeopleTableContextProviderProps {
@@ -125,6 +128,10 @@ export function PeopleTableContextProvider({
     }
   }
 
+  function resetColumnState() {
+    setColumnOrder(columns.map((column) => column.id as string));
+  }
+
   return (
     <PeopleTableContext.Provider
       value={{
@@ -134,6 +141,7 @@ export function PeopleTableContextProvider({
         isFetching,
         saveCurrentColumnState,
         loadPreviousColumnState,
+        resetColumnState,
       }}
     >
       {children}
