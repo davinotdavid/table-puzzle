@@ -1,10 +1,33 @@
-import fsPromises from 'fs/promises'
-import path from "path";
+import peopleJson from '@/data/people.json'
 
-export async function fetchPeople() {
-  const filePath = path.join(process.cwd(), 'src/data/people.json');
-  const jsonData = await fsPromises.readFile(filePath);
-  const peopleData = JSON.parse(jsonData.toString());
+export type Person = {
+  id: string
+  first_name: string
+  last_name: string
+  full_name?: string
+  email: string
+  city: string
+  registered_date: string
+  is_private: boolean
+}
 
-  return peopleData;
+export type PersonApiResponse = {
+  data: Person[]
+  meta: {
+    totalRowCount: number
+  }
+}
+
+export function fetchPeople(
+  start: number,
+  size: number,
+): PersonApiResponse {
+  const dbData = [...peopleJson];
+
+  return {
+    data: dbData.slice(start, start + size),
+    meta: {
+      totalRowCount: dbData.length,
+    },
+  }
 }
