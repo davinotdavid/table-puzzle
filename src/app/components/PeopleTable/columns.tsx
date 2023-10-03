@@ -1,5 +1,5 @@
 import { Column, createColumnHelper } from "@tanstack/react-table"
-import { Person } from "./types"
+import { Person } from "@/api/people";
 
 const columnHelper = createColumnHelper<Person>()
 

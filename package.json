@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.35.3",
     "@tanstack/react-table": "^8.10.3",
     "next": "latest",
     "react": "latest",

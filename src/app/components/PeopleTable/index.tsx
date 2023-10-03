@@ -1,10 +1,14 @@
-import { fetchPeople } from "@/api/people";
+'use client'
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Table } from "./Table";
 
-export async function PeopleTable() {
-  const peopleData = await fetchPeople();
+const queryClient = new QueryClient()
 
+export async function PeopleTable() {
   return (
-    <Table peopleData={peopleData} />
+    <QueryClientProvider client={queryClient}>
+      <Table />
+    </QueryClientProvider>
   )
 }
