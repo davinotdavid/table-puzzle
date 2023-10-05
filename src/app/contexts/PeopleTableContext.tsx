@@ -101,9 +101,9 @@ export function PeopleTableContextProvider({
     (containerRefElement?: HTMLDivElement | null) => {
       if (containerRefElement) {
         const { scrollHeight, scrollTop, clientHeight } = containerRefElement;
-        // Once the user has scrolled within 300px of the bottom of the table, fetch more data if there is any
+        // Once the user has scrolled within 100px of the bottom of the table, fetch more data if there is any
         if (
-          scrollHeight - scrollTop - clientHeight < 300 &&
+          scrollHeight - scrollTop - clientHeight < 100 &&
           !isFetching &&
           totalFetched < totalDBRowCount
         ) {
